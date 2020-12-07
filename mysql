@@ -1,0 +1,29 @@
+# Open database connection
+db = pymysql.connect("localhost","root","12345","списокгруппы" )
+
+# prepare a cursor object using cursor() method
+cursor = db.cursor()
+
+# execute SQL query using execute() method.
+cursor.execute("SELECT Фамилия FROM ИУ1015 where id=1")
+
+# Fetch a single row using fetchone() method.
+data = cursor.fetchone()
+print ("Фамилие: %s " % data)
+
+sql = "insert into ИУ1015(Фамилия, Имя, Отчество)  value ('Иванов', 'Иван', 'Петрович')"
+cursor.execute(sql)
+
+sql = "update ИУ1015 SET Отчество='Иванович'  where Фамилия='Иванов'"
+cursor.execute(sql)
+
+sql = "select * from ИУ1015 where Фамилия='Иванов' AND Имя='Иван'"
+cursor.execute(sql)
+rows = cursor.fetchone()
+while rows is not None:
+   print (rows)
+   rows=cursor.fetchone()
+
+
+# disconnect from server
+db.close()
